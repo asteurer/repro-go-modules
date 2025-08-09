@@ -23,6 +23,13 @@ package wasi:io@0.2.0 {
 
 ```
 
+I tried manually creating the `wasi:clocks` package in `./component.wit` and tried inserting the file data in place of the `witText` variable [here](https://github.com/bytecodealliance/go-modules/blob/55a8715c694fb4bbe75c269ffd4a0ca14c80c6f1/wit/bindgen/generator.go#L2416); however, it then complains about not having a package header:
+```
+error: wasm-tools: error: no `package` header was found in any WIT file for this package
+```
+
+If I try to add a generic package header, we go back to the `package contains no worlds` error.
+
 # Usage
 
 ## Requirements
