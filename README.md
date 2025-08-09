@@ -1,22 +1,36 @@
 # Overview
 
-This is reproducing an error I'm encountering with `wit-bindgen-go` where the 0.6.2 release generates the Go bindings, while the 0.7.0 release does not.
+This is reproducing an error when attempting to generate the Go bindings for `spinframework/spin-go-sdk/v3` with `wit-bindgen-go`.
 
-## Notes
+```sh
+$ make go-bindings
+...
+error: wasm-tools: error: The main package `wasi:clocks@0.2.0` contains no worlds
+```
 
-- `0.7.0.log` and `0.7.0_no_w_flag.log` are identical
+Something I noticed in the `go_bindings.log` file (output for `make go-bindings`): Both the `filesystem` package and the `io` package encloses their interfaces with brackets, while the `clocks` package ends with a semicolon and its corresponding interface is placed below it:
+```
+package wasi:clocks@0.2.0;
+<INTERFACES>
 
-- `0.7.0.log` and `0.6.2_no_w_flag.log` have different errors (relevant text is at the bottom of each file)
+package wasi:filesystem@0.2.0 {
+    <INTERFACES>
+}
 
-- `0.6.2.log` is empty because `make 0.6.2` generates the `internal/*` files
+package wasi:io@0.2.0 {
+    <INTERFACES>
+}
 
-# Requirements
-
-- Go v1.24.5 (optional)
-- You can install the remaining tools by running `make install-tools`
-    - If you would prefer not to use the Makefile, these are the tools you will need:
-        - wit-bindgen-go v0.7.0 and v0.6.2
+```
 
 # Usage
 
-To attempt to generate the files, you can run `make all`
+## Requirements
+
+- Go v1.24.5
+
+# Generate the Go bindings
+
+To generate the files you have two options:
+- Run `make go-bindings`
+- Run `go tool wit-bindgen-go generate --out internal ./wit`
