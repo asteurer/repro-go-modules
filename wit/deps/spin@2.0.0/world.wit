@@ -6,10 +6,10 @@ world http-trigger {
   export wasi:http/incoming-handler@0.2.0;
 }
 
-/// Like `http-trigger`, but using WASI 0.2.0-rc-2023-10-18
+/// Like `http-trigger`, but using WASI 0.2.0-rc-y2023-m10-m18
 world http-trigger-rc20231018 {
   include platform-rc20231018;
-  export wasi:http/incoming-handler@0.2.0-rc-2023-10-18;
+  export wasi:http/incoming-handler@0.2.0-rc-y2023-m10-m18;
 }
 
 /// The imports needed for a guest to run on a Spin host
@@ -26,10 +26,10 @@ world platform {
   import variables;
 }
 
-/// Like `platform`, but using WASI 0.2.0-rc-2023-10-18
+/// Like `platform`, but using WASI 0.2.0-rc-y2023-m10-m18
 world platform-rc20231018 {
-  include wasi:cli/reactor@0.2.0-rc-2023-10-18;
-  import wasi:http/outgoing-handler@0.2.0-rc-2023-10-18;
+  include wasi:cli/reactor@0.2.0-rc-y2023-m10-d18;
+  import wasi:http/outgoing-handler@0.2.0-rc-y2023-m10-m18;
   import llm;
   import redis;
   import mqtt;
